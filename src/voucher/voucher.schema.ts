@@ -33,8 +33,9 @@ export class Voucher extends Document {
   @Prop({ required: true, default: false })
   isRepeated: boolean;
 
-  @Prop({ required: true }) 
+  /*@Prop({ required: true }) 
   userId: string;
+  */
 }
 
 export const VoucherSchema = SchemaFactory.createForClass(Voucher);

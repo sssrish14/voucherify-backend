@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
 import * as bcrypt from 'bcrypt';
+import { SigninResponse } from './dto/create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -29,7 +30,7 @@ export class UserService {
     const newUser = await this.userModel.create({ email, password: hashedPassword });
     return {
       message: 'User created successfully',
-      userId: newUser._id,
+      userId: newUser._id.toString(),
     };
   }
 
@@ -39,7 +40,7 @@ export class UserService {
    * @param password - User's password
    * @returns User's ID and success message
    */
-  async signin(email: string, password: string): Promise<any> {
+  async signin(email: string, password: string): Promise<SigninResponse> {
 
     const user = await this.userModel.findOne({ email }).exec();
     if (!user) {
@@ -53,7 +54,11 @@ export class UserService {
 
     return {
       message: 'Login successful',
-      userId: user._id,
+      userId: user._id.toString()
     };
+  }
+
+  async findAllUsers(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 }

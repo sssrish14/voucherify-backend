@@ -1,4 +1,5 @@
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -7,4 +8,10 @@ export class CreateUserDto {
   @IsString()
   @MinLength(6)
   password: string;
+
+}
+
+export interface SigninResponse{
+  message: string,
+  userId: string,
 }

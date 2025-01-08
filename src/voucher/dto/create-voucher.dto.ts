@@ -8,13 +8,17 @@ import {
     ArrayNotEmpty,
     Min,
     IsBoolean,
+    IsNotEmpty,
   } from 'class-validator';
-  
+  import { IsAlphaNumeric } from '../validator/alphanumeric.validator';
+
   export class CreateVoucherDto {
     @IsString()
+    @IsNotEmpty()
     voucherName: string;
   
     @IsString()
+    @IsAlphaNumeric()
     voucherCode: string; 
   
     @IsEnum(['percentage', 'amount'])
